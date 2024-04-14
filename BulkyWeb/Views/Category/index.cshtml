@@ -1,5 +1,7 @@
 @model List<Category>
 
+<partial name="_Notification" />
+
 <div class="container">
      <div class="row pt-4">
           <div class="col-6">
@@ -13,8 +15,8 @@
      </div>
      @if (Model.Count == 0)
      {
-          <div class="alert alert-info">
-               No category found.
+          <div class="text-center p-5 mt-3">
+               <h2>No category found.</h2>
           </div>
      }
      else
@@ -23,12 +25,22 @@
                <tr>
                     <th>Category Name</th>
                     <th>Display Order</th>
+                    <th></th>
                </tr>
                @foreach (var item in Model.OrderBy(x => x.DisplayOrder))
                {
                     <tr>
                          <td>@item.Name</td>
                          <td>@item.DisplayOrder</td>
+                         <td></td>
+                         <td>
+                              <a asp-controller="Category" asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">
+                                   <i class="bi bi-pencil-square"></i> edit
+                              </a>
+                              <a asp-controller="Category" asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">
+                                   <i class="bi bi-trash"></i> delete
+                              </a>
+                         </td>
                     </tr>
                }
           </table>
