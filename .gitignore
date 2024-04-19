@@ -5,6 +5,8 @@
 
 # dotenv files
 .env
+BulkyWeb/appsettings.Development.json
+BulkyWeb/appsettings.json
 
 # User-specific files
 *.rsuser
