@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bulky.DataAccess.Repository;
+namespace BulkyBook.DataAccess.Repository;
 
 public class Repository<T> : IRepository<T> where T : class
 {

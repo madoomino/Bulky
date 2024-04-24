@@ -1,6 +1,6 @@
-﻿using Bulky.Models;
+﻿using BulkyBook.Models;
 
-namespace Bulky.DataAccess.Repository;
+namespace BulkyBook.DataAccess.Repository;
 
 public class CategoryRepository(ApplicationDbContext db) : Repository<Category>(db), ICategoryRepository
 {

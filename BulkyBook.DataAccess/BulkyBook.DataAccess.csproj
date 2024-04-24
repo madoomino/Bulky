@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bulky.Models\Bulky.Models.csproj" />
+    <ProjectReference Include="../BulkyBook.Models/BulkyBook.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

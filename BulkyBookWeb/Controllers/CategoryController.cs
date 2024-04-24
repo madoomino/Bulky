@@ -1,9 +1,9 @@
-using Bulky.DataAccess;
-using Bulky.DataAccess.Repository;
-using Bulky.Models;
+using BulkyBook.DataAccess;
+using BulkyBook.DataAccess.Repository;
+using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers
+namespace BulkyBookWeb.Controllers
 {
     // what is the point of using ICategoryRepository instead of AppliactionDbContext?
     // ICategoryRepository is an interface that has all the methods that we need to interact with the database
