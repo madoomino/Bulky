@@ -1,16 +1,29 @@
 using Bulky.DataAccess;
+using Bulky.DataAccess.Repository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyWeb.Controllers
 {
-    public class CategoryController(ApplicationDbContext db) : Controller
+    // what is the point of using ICategoryRepository instead of AppliactionDbContext?
+    // ICategoryRepository is an interface that has all the methods that we need to interact with the database
+    // ok but what is the meaning of ICategoryReopsitory db?
+    // ICategoryRepository db is a private readonly field that is used to access the methods in the ICategoryRepository interface
+    // what is the point of using _categoryRepo?
+    // _categoryRepo is an instance of the ICategoryRepository interface that is used to access the methods in the ICategoryRepository interface
+    // so what is the benefit of ApplicationDbContext now?
+    // 
+    public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db = db;
+        private readonly ICategoryRepository _categoryRepo;
 
+        public CategoryController(ICategoryRepository db)
+        {
+            _categoryRepo = db;
+        }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = [.. _db.Categories];
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
         [HttpGet]
@@ -29,8 +42,8 @@ namespace BulkyWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["created"] = "Category Saved Successfully";
                 return RedirectToAction("Index");
 
@@ -44,7 +57,7 @@ namespace BulkyWeb.Controllers
             {
                 return NotFound();
             }
-            var obj = _db.Categories.Find(id);
+            var obj = _categoryRepo.Get(obj => obj.Id == id);
             if (obj == null)
             {
                 return NotFound();
@@ -57,8 +70,8 @@ namespace BulkyWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _categoryRepo.Update(obj);
+                _categoryRepo.Save();
                 TempData["edited"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
 
@@ -71,8 +84,8 @@ namespace BulkyWeb.Controllers
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();
             TempData["deleted"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }
